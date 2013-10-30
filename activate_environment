@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Loading the Python environment"
+source CS-Project-ENV/bin/activate
+echo "Environment loaded for ${PWD##*/}"
