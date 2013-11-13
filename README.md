@@ -33,7 +33,7 @@ Virtual environment is an environment for python that will help you create diffe
 
 
 ## Activate Environment
-In order to activate the VirtualEnvironment (that contains the libraries needed for the project, including [Numpy](http://docs.scipy.org/doc/numpy/reference/index.html)), run
+In order to activate the VirtualEnvironment (that contains the libraries needed for the project, including [NumPy](http://docs.scipy.org/doc/numpy/reference/index.html)), run
 
     source activate_environment
 *to disable the environment, run `deactivate`*
