@@ -36,4 +36,4 @@ Virtual environment is an environment for python that will help you create diffe
 In order to activate the VirtualEnvironment (that contains the libraries needed for the project, including NumPy), run
 
     source activate_environment
-* to disable the environment, run `deactivate` *
+*to disable the environment, run `deactivate`*
