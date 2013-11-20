@@ -69,6 +69,17 @@ def write_H_matrix():
   outfile_H.close()
 
 
+def generate_and_write_eigenvalues():
+  global eigen_values
+  eigen_values = linalg.eigvals(H)
+  eigen_values = numpy.sort(eigen_values)
+
+  outfile_eigen = open("eigen_H.out", "w")
+
+  outfile_eigen.write(eigen_values)
+  outfile_eigen.close()
+
+
 
 # MAIN
 
@@ -155,6 +166,9 @@ write_H_matrix()
 
 print "Calculating eigenvalues of H ... "
 
-print linalg.eigvals(H)
+generate_and_write_eigenvalues()
 
 print "Calculated eigenvalues of H."  
+
+print "Second highest eigenvalue = " + str(eigen_values[1])
+
