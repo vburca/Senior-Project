@@ -6,10 +6,11 @@
 
 # Author:   Vlad Burca
 # Date:     November 13, 2013
-# Updated:  November 13, 2013
+# Updated:  November 20, 2013
 
 import yaml
 import numpy 
+from numpy import linalg
 
 
 def generate_pair_matrices():
@@ -22,6 +23,23 @@ def generate_pair_matrices():
   B_elements_arr = numpy.array(B_elements, dtype=[('first', '<i4'), ('second', '<i4')])
   global B 
   B = B_elements_arr.reshape((n, n))
+
+
+def write_indices_matrices():
+  outfile_A = open("indices_matrix_A.out", "w")
+  outfile_B = open("indices_matrix_B.out", "w")
+
+  for row in A_indices:
+    for element in row:
+      outfile_A.write(str(element) + ' ')
+    outfile_A.write("\n")
+  outfile_A.close()
+
+  for row in B_indices:
+    for element in row:
+      outfile_B.write(str(element) + ' ')
+    outfile_B.write("\n")
+  outfile_B.close()
 
 
 def write_pair_matrices():
@@ -41,6 +59,17 @@ def write_pair_matrices():
   outfile_B.close()
 
 
+def write_H_matrix():
+  outfile_H = open("matrix_H.out", "w")
+
+  for row in H:
+    for element in row:
+      outfile_H.write(str(element) + ' ')
+    outfile_H.write("\n")
+  outfile_H.close()
+
+
+
 # MAIN
 
 # Read n from configuration file
@@ -49,7 +78,7 @@ config_vars = yaml.safe_load(config_file)
 
 n = config_vars['init_generators']['n']
 
-print "Starting generation of matrices A and B with n = " + str(n) + " ... "
+print "Generating matrices A and B with n = " + str(n) + " ... "
 
 # Generate Z(n)
 Z_n = list(xrange(n))
@@ -68,13 +97,64 @@ indices_of_cross_Z = numpy.arange(size)   # Generate array of indices of the cro
 A_indices = numpy.random.permutation(indices_of_cross_Z).reshape((n, n)) # Randomize in matrix positions
 B_indices = numpy.random.permutation(indices_of_cross_Z).reshape((n, n)) # Randomize in matrix positions
 
+write_indices_matrices()
+
 if config_vars['init_generators']['generate_pair_matrices'] == True:
   generate_pair_matrices()
 
   if config_vars['init_generators']['write_matrices_to_file'] == True:
     write_pair_matrices()
 
-print "Matrices A and B are generated."
+print "Generated matrices A and B."
 
 
-  
+
+# Description: 
+# Generates the H matrix from matrices A and B.
+# H is an adjacency matrix constructed by adding edges between nodes in A and B
+# on the following rules:
+#   (x, y) of A is connected to the following nodes of B:
+#     (x, y)
+#     (x + y, y)
+#     (y + 1, -x)
+
+size_H = 2 * size
+
+print "Generating H of size " + str(size_H) + " x " + str(size_H) + " ... "
+
+H = numpy.zeros(shape=(size_H, size_H), dtype=numpy.int64)  # Generate H, empty adjacency matrix
+
+for row in A_indices:
+  for element_index in row:   # Get the tuple index from the matrix of indices (A)
+    x = cross_Z[element_index][0]   # Grab first value
+    y = cross_Z[element_index][1]   # Grab second value
+
+    i = cross_Z.index((x, y))       # Grab the index of the (x, y) element
+
+    # connect to (x, y) in B
+    j = cross_Z.index((x, y)) + size   # add the shift in the H indexing       
+
+    H[i][j] += 1      # Increment the number of edges
+    H[j][i] += 1      # symmetric by first diagonal
+
+    # connect to (x + y, y) in B
+    j = cross_Z.index(((x + y) % n, y)) + size
+
+    H[i][j] += 1
+    H[j][i] += 1
+
+    # connect to (y + 1, -x) in B
+    j = cross_Z.index(((y + 1) % n, (-x) % n)) + size
+
+    H[i][j] += 1
+    H[j][i] += 1
+
+print "Generated adjacency matrix H."
+
+write_H_matrix()
+
+print "Calculating eigenvalues of H ... "
+
+print linalg.eigvals(H)
+
+print "Calculated eigenvalues of H."  
