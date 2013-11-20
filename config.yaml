@@ -1,2 +1,4 @@
 init_generators:
-  n:    4
+  n:                          4
+  generate_pair_matrices:     True
+  write_matrices_to_file:     True
