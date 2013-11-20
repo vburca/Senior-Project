@@ -72,11 +72,11 @@ def write_H_matrix():
 def generate_and_write_eigenvalues():
   global eigen_values
   eigen_values = linalg.eigvals(H)
-  eigen_values = numpy.sort(eigen_values)
+  eigen_values = numpy.sort(eigen_values)[::-1]
 
   outfile_eigen = open("eigen_H.out", "w")
 
-  outfile_eigen.write(eigen_values)
+  outfile_eigen.write(str(eigen_values))
   outfile_eigen.close()
 
 
