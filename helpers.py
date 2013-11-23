@@ -55,8 +55,8 @@ def write_pair_matrices(A, B):
   outfile_B.close()
 
 
-def write_H_matrix(H):
-  outfile_H = open("matrix_H.out", "w")
+def write_H_matrix(H, name):
+  outfile_H = open(name.strip('[]') + "_matrix_H.out", "w")
 
   for row in H:
     for element in row:

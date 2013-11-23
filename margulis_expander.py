@@ -72,7 +72,7 @@ def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n):
 
   print NAME + " Generated adjacency matrix H."
 
-  helpers.write_H_matrix(H)
+  helpers.write_H_matrix(H, NAME)
 
   print NAME + " Calculating eigenvalues of H ... "
 
