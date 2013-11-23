@@ -1,19 +1,21 @@
-# Dana Angluin's algorithm for generating expander
+# G.A Margulis' algorithm for generating expander
 
 # Author:   Vlad Burca
 # Date:     November 23, 2013
 # Updated:  November 23, 2013
 
 
-# ANGLUIN EXPANDERS
+# MARGULIS EXPANDERS
 # Description: 
 # Generates the H matrix from matrices A and B.
 # H is an adjacency matrix constructed by adding edges between nodes in A and B
 # on the following rules:
 #   (x, y) of A is connected to the following nodes of B:
 #     (x, y)
+#     (x + 1, y)
+#     (x, y + 1)
 #     (x + y, y)
-#     (y + 1, -x)
+#     (-y, x)
 
 
 import numpy
@@ -21,10 +23,10 @@ import numpy
 import helpers
 
 
-NAME = '[ANGLUIN]'
+NAME = '[MARGULIS]'
 
 
-def GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n):
+def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n):
   size_H = 2 * size
 
   print NAME + " Generating H of size " + str(size_H) + " x " + str(size_H) + " ... "
@@ -44,14 +46,26 @@ def GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n):
       H[i][j] += 1      # Increment the number of edges
       H[j][i] += 1      # symmetric by first diagonal
 
+      # connect to (x + 1, y) in B
+      j = cross_Z.index(((x + 1) % n, y)) + size
+
+      H[i][j] += 1
+      H[j][i] += 1
+
+      # connect to (x, y + 1) in B
+      j = cross_Z.index((x, (y + 1) % n)) + size
+
+      H[i][j] += 1
+      H[j][i] += 1
+
       # connect to (x + y, y) in B
       j = cross_Z.index(((x + y) % n, y)) + size
 
       H[i][j] += 1
       H[j][i] += 1
 
-      # connect to (y + 1, -x) in B
-      j = cross_Z.index(((y + 1) % n, (-x) % n)) + size
+      # connect to (-y, x) in B
+      j = cross_Z.index(((-y) % n, x)) + size
 
       H[i][j] += 1
       H[j][i] += 1

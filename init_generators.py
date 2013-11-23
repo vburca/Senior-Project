@@ -15,6 +15,10 @@ from numpy import linalg
 import helpers
 import algorithms
 
+# Constant names for the Explicit Methods
+ANGLUIN_METHOD  = 'ANGLUIN'
+MARGULIS_METHOD = 'MARGULIS'
+
 
 # MAIN
 
@@ -56,8 +60,8 @@ if config_vars['init_generators']['generate_pair_matrices'] == True:
 print "Generated matrices A and B."
 
 
-algorithms.GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n)
-#GENERATE_MARGULIS_EXPANDERS()
+algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, cross_Z, A_indices, n)
+algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, cross_Z, A_indices, n)
 
 #GENERATE_RANDOM_EXPANDERS(degree=3)
 #GENERATE_RANDOM_EXPANDERS(degree=5)

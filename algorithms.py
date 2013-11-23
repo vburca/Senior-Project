@@ -4,4 +4,18 @@
 # Date:     November 23, 2013
 # Updated:  November 23, 2013
 
+
 from angluin_expander import GENERATE_ANGLUIN_EXPANDERS
+from margulis_expander import GENERATE_MARGULIS_EXPANDERS
+
+# Explicit Methods
+ANGLUIN_METHOD  = 'ANGLUIN'
+MARGULIS_METHOD = 'MARGULIS'
+
+
+def EXPLICIT_METHOD(method_name, size, cross_Z, A_indices, n):
+  if method_name == ANGLUIN_METHOD:
+    GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n)
+  elif method_name == MARGULIS_METHOD:
+    GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n)
+
