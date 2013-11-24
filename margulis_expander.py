@@ -1,8 +1,8 @@
-# G.A Margulis' algorithm for generating expander
+# G.A Margulis' algorithm for generating expander graphs
 
 # Author:   Vlad Burca
 # Date:     November 23, 2013
-# Updated:  November 23, 2013
+# Updated:  November 24, 2013
 
 
 # MARGULIS EXPANDERS
@@ -26,7 +26,7 @@ import helpers
 NAME = '[MARGULIS]'
 
 
-def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n):
+def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency, output_eigenvalues):
   size_H = 2 * size
 
   print NAME + " Generating H of size " + str(size_H) + " x " + str(size_H) + " ... "
@@ -72,12 +72,16 @@ def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n):
 
   print NAME + " Generated adjacency matrix H."
 
-  helpers.write_H_matrix(H, NAME)
+  if output_adjacency == True:
+    helpers.write_H_matrix(H, NAME)
 
   print NAME + " Calculating eigenvalues of H ... "
 
-  eigenvalues = helpers.generate_and_write_eigenvalues(H, NAME)
+  eigenvalues = helpers.generate_eigenvalues(H, NAME)
+
+  if output_eigenvalues == True:
+    helpers.write_eigenvalues(NAME, eigenvalues)
 
   print NAME + " Calculated eigenvalues of H."  
 
-  print NAME + " Second highest eigenvalue = " + str(eigenvalues[1])
+#  print NAME + " Second highest eigenvalue = " + str(eigenvalues[1])

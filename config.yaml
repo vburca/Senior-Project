@@ -1,7 +1,10 @@
 expanders:
-  n:                            4
+  n:                            2
   cleanup:                      True
-  output_initializer_matrices:  True
+  output_indices_matrices:      False
+  output_initializer_matrices:  False
+  output_expander_adjacency:    False
+  output_eigenvalues:           False
   angluin_method:               True
   margulis_method:              True
   random_3:                     False

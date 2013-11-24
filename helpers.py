@@ -2,8 +2,9 @@
 
 # Author:   Vlad Burca
 # Date:     November 23, 2013
-# Updated:  November 23, 2013
+# Updated:  November 24, 2013
 
+import yaml
 import numpy
 from numpy import linalg
 
@@ -76,13 +77,21 @@ def write_H_matrix(H, name):
   outfile_H.close()
 
 
-def generate_and_write_eigenvalues(H, name):
+def generate_eigenvalues(H, name):
   eigenvalues = linalg.eigvals(H)
   eigenvalues = numpy.sort(eigenvalues)[::-1]
 
-  outfile_eigen = open(name.strip('[]') + "_eigen_H.out", "w")
+  return eigenvalues
+
+
+def write_eigenvalues(name, eigenvalues):
+  outfile_eigen = open(name.strip('[]') + "_eigenvalues.out", "w")
 
   outfile_eigen.write(str(eigenvalues))
   outfile_eigen.close()
 
-  return eigenvalues
+
+def write_result(name, n, eigenvalue):
+
+
+

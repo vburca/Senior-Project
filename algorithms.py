@@ -2,7 +2,7 @@
 
 # Author:   Vlad Burca
 # Date:     November 23, 2013
-# Updated:  November 23, 2013
+# Updated:  November 24, 2013
 
 
 from angluin_expander import GENERATE_ANGLUIN_EXPANDERS
@@ -18,16 +18,20 @@ RANDOM_3        = 'RANDOM_3'
 RANDOM_5        = 'RANDOM_5'
 
 
-def EXPLICIT_METHOD(method_name, size, cross_Z, A_indices, n):
+def EXPLICIT_METHOD(method_name, size, cross_Z, A_indices, n, output_adjacency, output_eigenvalues):
   if method_name == ANGLUIN_METHOD:
-    GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n)
+    GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency, output_eigenvalues)
   elif method_name == MARGULIS_METHOD:
-    GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n)
+    GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency, output_eigenvalues)
 
 
-def RANDOM_METHOD(method_name):
+def RANDOM_METHOD(method_name, output_adjacency, output_eigenvalues):
   if method_name == RANDOM_3:
-    GENERATE_RANDOM_EXPANDERS(degree=3)
+    GENERATE_RANDOM_EXPANDERS(degree=3, 
+                              output_adjacency=output_adjacency, 
+                              output_eigenvalues=output_eigenvalues)
   elif method_name == RANDOM_5:
-    GENERATE_RANDOM_EXPANDERS(degree=5)
+    GENERATE_RANDOM_EXPANDERS(degree=5, 
+                              output_adjacency=output_adjacency, 
+                              output_eigenvalues=output_eigenvalues)
 
