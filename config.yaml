@@ -1,4 +1,8 @@
-init_generators:
-  n:                          2
-  generate_pair_matrices:     True
-  write_matrices_to_file:     True
+expanders:
+  n:                            4
+  cleanup:                      True
+  output_initializer_matrices:  True
+  angluin_method:               True
+  margulis_method:              True
+  random_3:                     False
+  random_5:                     False

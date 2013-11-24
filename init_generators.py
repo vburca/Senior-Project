@@ -19,14 +19,25 @@ import algorithms
 ANGLUIN_METHOD  = 'ANGLUIN'
 MARGULIS_METHOD = 'MARGULIS'
 
+# Constant names for the Random Methods
+RANDOM_3        = 'RANDOM_3'
+RANDOM_5        = 'RANDOM_5'
+
 
 # MAIN
 
 # Read n from configuration file
 config_file = open("config.yaml", "r")
 config_vars = yaml.safe_load(config_file)
+config_file.close()
 
-n = config_vars['init_generators']['n']
+
+# Clean existing .out files
+if config_vars['expanders']['cleanup'] == True:
+  helpers.cleanup()
+
+
+n = config_vars['expanders']['n']
 
 print "Generating matrices A and B with n = " + str(n) + " ... "
 
@@ -49,20 +60,25 @@ B_indices = numpy.random.permutation(indices_of_cross_Z).reshape((n, n)) # Rando
 
 helpers.write_indices_matrices(A_indices, B_indices)
 
-if config_vars['init_generators']['generate_pair_matrices'] == True:
+if config_vars['expanders']['output_initializer_matrices'] == True:
   returned_matrices = helpers.generate_pair_matrices(cross_Z, A_indices, B_indices, n)
   A = returned_matrices[0]
   B = returned_matrices[1]
 
-  if config_vars['init_generators']['write_matrices_to_file'] == True:
-    helpers.write_pair_matrices(A, B)
+  helpers.write_pair_matrices(A, B)
 
 print "Generated matrices A and B."
 
 
-algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, cross_Z, A_indices, n)
-algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, cross_Z, A_indices, n)
+if config_vars['expanders']['angluin_method'] == True:
+  algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, cross_Z, A_indices, n)
 
-#GENERATE_RANDOM_EXPANDERS(degree=3)
-#GENERATE_RANDOM_EXPANDERS(degree=5)
+if config_vars['expanders']['margulis_method'] == True:
+  algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, cross_Z, A_indices, n)
+
+if config_vars['expanders']['random_3'] == True:
+  algorithms.RANDOM_METHOD(RANDOM_3)
+
+if config_vars['expanders']['random_5'] == True:
+  algorithms.RANDOM_METHOD(RANDOM_5)
 

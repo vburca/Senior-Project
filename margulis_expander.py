@@ -76,7 +76,7 @@ def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n):
 
   print NAME + " Calculating eigenvalues of H ... "
 
-  eigenvalues = helpers.generate_and_write_eigenvalues(H)
+  eigenvalues = helpers.generate_and_write_eigenvalues(H, NAME)
 
   print NAME + " Calculated eigenvalues of H."  
 

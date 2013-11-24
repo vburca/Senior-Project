@@ -7,6 +7,17 @@
 import numpy
 from numpy import linalg
 
+def cleanup():
+  import os
+
+  print "Removing all the .out files from the current directory"
+  
+  filelist = [ f for f in os.listdir(".") if f.endswith(".out") ]
+  for f in filelist:
+    os.remove(f)
+
+  print "Cleaned up all the output files (*.out)"
+
 
 def generate_pair_matrices(cross_Z, A_indices, B_indices, n):
   A_elements = list(cross_Z[element] for row in A_indices for element in row)     # Getting the actual element pairs from the index of the cross product
@@ -65,11 +76,11 @@ def write_H_matrix(H, name):
   outfile_H.close()
 
 
-def generate_and_write_eigenvalues(H):
+def generate_and_write_eigenvalues(H, name):
   eigenvalues = linalg.eigvals(H)
   eigenvalues = numpy.sort(eigenvalues)[::-1]
 
-  outfile_eigen = open("eigen_H.out", "w")
+  outfile_eigen = open(name.strip('[]') + "_eigen_H.out", "w")
 
   outfile_eigen.write(str(eigenvalues))
   outfile_eigen.close()
