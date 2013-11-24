@@ -84,4 +84,6 @@ def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency, o
 
   print NAME + " Calculated eigenvalues of H."  
 
+  helpers.write_result(NAME, n, eigenvalues[1])  
+
 #  print NAME + " Second highest eigenvalue = " + str(eigenvalues[1])

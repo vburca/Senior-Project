@@ -37,7 +37,11 @@ def generate_expanders():
 
   # Clean existing .out files
   if config_vars['expanders']['cleanup'] == True:
-    helpers.cleanup()
+    helpers.cleanup(".out")
+
+  # Clean existing .results files
+  if config_vars['expanders']['clear_results_files'] == True:
+    helpers.cleanup(".results")
 
 
   n = config_vars['expanders']['n']
@@ -95,3 +99,4 @@ def generate_expanders():
                 output_adjacency=config_vars['expanders']['output_expander_adjacency'],
                 output_eigenvalues=config_vars['expanders']['output_eigenvalues'])
 
+# generate_expanders()

@@ -9,6 +9,7 @@
 # Updated:  November 24, 2013
 
 import start
+import yaml
 
 # Methods
 ANGLUIN   = 'angluin'
@@ -32,12 +33,14 @@ VALUES = [ 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 ]
 # random3_results   = { RANDOM_3: {} }
 # random5_results   = { RANDOM_5: {} }
 
+print "Starting main program ... \n\n"
+
 
 for v in VALUES:
   # Update config file with the new value for n
   config_file = open("config.yaml", "r")
   config_vals = yaml.safe_load(config_file)
-  config_fie.close()
+  config_file.close()
 
   config_vals['expanders']['n'] = v     # update the new value
 

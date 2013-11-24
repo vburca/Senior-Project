@@ -1,11 +1,12 @@
 expanders:
-  n:                            2
-  cleanup:                      True
-  output_indices_matrices:      False
-  output_initializer_matrices:  False
-  output_expander_adjacency:    False
-  output_eigenvalues:           False
-  angluin_method:               True
-  margulis_method:              True
-  random_3:                     False
-  random_5:                     False
+  angluin_method: true
+  cleanup: true
+  clear_results_files: false
+  margulis_method: true
+  n: 100
+  output_eigenvalues: false
+  output_expander_adjacency: false
+  output_indices_matrices: false
+  output_initializer_matrices: false
+  random_3: false
+  random_5: false

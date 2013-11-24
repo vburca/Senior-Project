@@ -8,16 +8,16 @@ import yaml
 import numpy
 from numpy import linalg
 
-def cleanup():
+def cleanup(extension):
   import os
 
-  print "Removing all the .out files from the current directory"
+  print "Removing all the " + extension + " files from the current directory"
   
-  filelist = [ f for f in os.listdir(".") if f.endswith(".out") ]
+  filelist = [ f for f in os.listdir(".") if f.endswith(extension) ]
   for f in filelist:
     os.remove(f)
 
-  print "Cleaned up all the output files (*.out)"
+  print "Cleaned up all the output files (*" + extension + ")"
 
 
 def generate_pair_matrices(cross_Z, A_indices, B_indices, n):
@@ -92,6 +92,26 @@ def write_eigenvalues(name, eigenvalues):
 
 
 def write_result(name, n, eigenvalue):
+  import os
 
+  name = name.strip('[]').lower()
 
+  # Open file with initial results (if existent)
+  if os.path.exists(name + ".results"):
+    result_file = open(name + ".results", "r")
+    results = yaml.safe_load(result_file)
+    result_file.close()
+  else:   # file does not exist / no previous results
+    results = { name: {} }
 
+  # If files are empty
+  if not 'dict' in str(type(results)):
+    results = { name: {} }
+
+  # Update the new results
+  results[name][n] = float(eigenvalue)
+
+  # Open file to write new yaml dictionary
+  result_file = open(name + ".results", "w")
+  result_file.write(yaml.dump(results, default_flow_style=False))    # update results yaml dictionary
+  result_file.close()
