@@ -2,9 +2,8 @@ expanders:
   angluin_method: true
   cleanup: true
   clear_results_files: false
-  margulis_method: true
+  margulis_method: false
   n: 100
-  output_eigenvalues: false
   output_expander_adjacency: false
   output_indices_matrices: false
   output_initializer_matrices: false

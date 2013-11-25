@@ -80,23 +80,22 @@ def generate_expanders():
 
   if config_vars['expanders']['angluin_method'] == True:
     algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, cross_Z, A_indices, n, 
-                output_adjacency=config_vars['expanders']['output_expander_adjacency'],
-                output_eigenvalues=config_vars['expanders']['output_eigenvalues'])
+                output_adjacency=config_vars['expanders']['output_expander_adjacency'])
 
 
   if config_vars['expanders']['margulis_method'] == True:
     algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, cross_Z, A_indices, n,
-                output_adjacency=config_vars['expanders']['output_expander_adjacency'],
-                output_eigenvalues=config_vars['expanders']['output_eigenvalues'])
+                output_adjacency=config_vars['expanders']['output_expander_adjacency'])
 
   if config_vars['expanders']['random_3'] == True:
     algorithms.RANDOM_METHOD(RANDOM_3, 
-                output_adjacency=config_vars['expanders']['output_expander_adjacency'],
-                output_eigenvalues=config_vars['expanders']['output_eigenvalues'])
+                output_adjacency=config_vars['expanders']['output_expander_adjacency'])
 
   if config_vars['expanders']['random_5'] == True:
     algorithms.RANDOM_METHOD(RANDOM_5,
-                output_adjacency=config_vars['expanders']['output_expander_adjacency'],
-                output_eigenvalues=config_vars['expanders']['output_eigenvalues'])
+                output_adjacency=config_vars['expanders']['output_expander_adjacency'])
 
-# generate_expanders()
+
+# DEBUGGING CODE
+
+generate_expanders()

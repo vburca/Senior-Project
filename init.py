@@ -50,8 +50,8 @@ for v in VALUES:
   config_file.close()
 
   # Call the main method that runs the generating algorithms
-  print "--------------------------------------------------"
-  print "**** n = " + str(v) + "****\n\n"
+  print "\n\n--------------------------------------------------"
+  print "**** n = " + str(v) + " ****\n"
   start.generate_expanders()
 
 
