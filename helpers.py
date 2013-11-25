@@ -170,6 +170,7 @@ def write_result(name, n, K, eigenvalue):
   # to 0 value for the expansion_constant.
 
   expansion_constant = 2 * math.sqrt(K - 1) - eigenvalue
+  # Uncomment to get only eigenvalues in .results file
   # expansion_constant = eigenvalue
 
   # Update the new results

@@ -1,12 +1,12 @@
 algorithms:
   angluin_method: true
   margulis_method: true
-  random_3: false
-  random_5: false
+  random_3: true
+  random_5: true
 params:
   cleanup: true
   clear_results_files: false
-  epsilon: 0.0001
+  epsilon: 1.0e-06
   n: 30
   output_indices_matrices: false
   output_initializer_matrices: false

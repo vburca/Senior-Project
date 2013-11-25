@@ -16,5 +16,39 @@
 # Chang's conjectured that for a big enough n, these Random Expanders are 
 # going to be Ramanujan.
 
-def GENERATE_RANDOM_EXPANDERS(degree, size_H, EPSILON):
-  print "Empty"
+import numpy
+
+import helpers
+
+
+NAME = ''
+
+
+def GENERATE_RANDOM_EXPANDERS(K, size_H, EPSILON):
+  NAME = '[RANDOM' + str(K) + ']'
+
+  print NAME + " Generating H (adjacency list matrix) of size " + str(size_H) + " x " + str(K) + " ... "
+
+  H = numpy.empty(shape=(size_H, K), dtype=numpy.int32)   # Generate H, empty adjacency list matrix
+
+  second_half = numpy.arange(size_H / 2, size_H)
+
+  for edge in range(K):
+
+    perm_half = numpy.random.permutation(second_half)
+
+    for i in range(size_H/2):
+      H[i][edge]              = perm_half[i]
+      H[perm_half[i]][edge]   = i
+
+  print NAME + " Generated adjacency list matrix H."
+
+  print NAME + " Calculating second highest eigenvalue of H ... "
+
+  eigenvalue = helpers.generate_eigenvalue(H, size_H, K, EPSILON, NAME)
+
+  print NAME + " Calculated second highest eigenvalue of H."
+
+  helpers.write_result(NAME, size_H, K, eigenvalue) 
+  helpers.cleanup(".aux")
+
