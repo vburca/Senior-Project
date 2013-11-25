@@ -16,5 +16,5 @@
 # Chang's conjectured that for a big enough n, these Random Expanders are 
 # going to be Ramanujan.
 
-def GENERATE_RANDOM_EXPANDERS(degree, EPSILON):
+def GENERATE_RANDOM_EXPANDERS(degree, size_H, EPSILON):
   print "Empty"

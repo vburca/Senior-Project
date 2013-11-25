@@ -71,6 +71,6 @@ def GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n, EPSILON):
 
   print NAME + " Calculated second highest eigenvalue of H."
 
-  helpers.write_result(NAME, n, eigenvalue) 
+  helpers.write_result(NAME, size_H, K, eigenvalue) 
   helpers.cleanup(".aux") 
 

@@ -1,13 +1,12 @@
-params:
-  cleanup: true
-  clear_results_files: false
-  n: 2
-  epsilon: 0.0001
-  output_indices_matrices: false
-  output_initializer_matrices: false
-
 algorithms:
   angluin_method: true
   margulis_method: true
   random_3: false
   random_5: false
+params:
+  cleanup: true
+  clear_results_files: false
+  epsilon: 0.0001
+  n: 30
+  output_indices_matrices: false
+  output_initializer_matrices: false

@@ -75,19 +75,22 @@ def generate_expanders():
 
 
   if config_vars['algorithms']['angluin_method'] == True:
+    print ''
     algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, A_indices, n, EPSILON)
 
-
   if config_vars['algorithms']['margulis_method'] == True:
+    print ''
     algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, A_indices, n, EPSILON)
 
   if config_vars['algorithms']['random_3'] == True:
-    algorithms.RANDOM_METHOD(RANDOM_3, EPSILON)
+    print ''
+    algorithms.RANDOM_METHOD(RANDOM_3, 2 * size, EPSILON)
 
   if config_vars['algorithms']['random_5'] == True:
-    algorithms.RANDOM_METHOD(RANDOM_5, EPSILON)
+    print ''
+    algorithms.RANDOM_METHOD(RANDOM_5, 2 * size, EPSILON)
 
-
+print '\n'
 # DEBUGGING CODE
 
 generate_expanders()

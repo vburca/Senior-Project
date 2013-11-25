@@ -127,9 +127,9 @@ def generate_eigenvalue(H, size_H, k, EPSILON, NAME):
   return read_from_c_results()
 
 
-def generate_eigenvalue_old(M, n, degree):
-  EPSILON = 0.001
-  return matrix_helper.powermethod(M, n, EPSILON, degree)
+# def generate_eigenvalue_old(M, n, degree):
+#   EPSILON = 0.001
+#   return matrix_helper.powermethod(M, n, EPSILON, degree)
 
 
 # def generate_eigenvalues(H, name):
@@ -146,8 +146,9 @@ def generate_eigenvalue_old(M, n, degree):
 #   outfile_eigen.close()
 
 
-def write_result(name, n, eigenvalue):
+def write_result(name, n, K, eigenvalue):
   import os
+  import math
 
   name = name.strip('[]').lower()
 
@@ -163,8 +164,16 @@ def write_result(name, n, eigenvalue):
   if not 'dict' in str(type(results)):
     results = { name: {} }
 
+  # Calculate the expansion constant based on the fact that, for a good
+  # Expander ("Ramanujan"), we need SecondEigenvalue <= 2*sqrt(K-1)
+  # We will consider good expanders, the graphs that have a positive, close
+  # to 0 value for the expansion_constant.
+
+  expansion_constant = 2 * math.sqrt(K - 1) - eigenvalue
+  # expansion_constant = eigenvalue
+
   # Update the new results
-  results[name][n] = float(eigenvalue)
+  results[name][n] = float(expansion_constant)
 
   # Open file to write new yaml dictionary
   result_file = open(name + ".results", "w")

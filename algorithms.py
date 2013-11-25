@@ -25,9 +25,9 @@ def EXPLICIT_METHOD(method_name, size, A_indices, n, EPSILON):
     GENERATE_MARGULIS_EXPANDERS(size, A_indices, n, EPSILON)
 
 
-def RANDOM_METHOD(method_name, output_adjacency):
+def RANDOM_METHOD(method_name, size_H, EPSILON):
   if method_name == RANDOM_3:
-    GENERATE_RANDOM_EXPANDERS(degree=3, EPSILON=EPSILON)
+    GENERATE_RANDOM_EXPANDERS(degree=3, size_H=size_H, EPSILON=EPSILON)
   elif method_name == RANDOM_5:
-    GENERATE_RANDOM_EXPANDERS(degree=5, EPSILON=EPSILON)
+    GENERATE_RANDOM_EXPANDERS(degree=5, size_H=size_H, EPSILON=EPSILON)
 
