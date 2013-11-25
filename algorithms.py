@@ -18,18 +18,16 @@ RANDOM_3        = 'RANDOM_3'
 RANDOM_5        = 'RANDOM_5'
 
 
-def EXPLICIT_METHOD(method_name, size, cross_Z, A_indices, n, output_adjacency):
+def EXPLICIT_METHOD(method_name, size, A_indices, n):
   if method_name == ANGLUIN_METHOD:
-    GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency)
+    GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n)
   elif method_name == MARGULIS_METHOD:
-    GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency)
+    GENERATE_MARGULIS_EXPANDERS(size, A_indices, n)
 
 
 def RANDOM_METHOD(method_name, output_adjacency):
   if method_name == RANDOM_3:
-    GENERATE_RANDOM_EXPANDERS(degree=3, 
-                              output_adjacency=output_adjacency)
+    GENERATE_RANDOM_EXPANDERS(degree=3)
   elif method_name == RANDOM_5:
-    GENERATE_RANDOM_EXPANDERS(degree=5, 
-                              output_adjacency=output_adjacency)
+    GENERATE_RANDOM_EXPANDERS(degree=5)
 

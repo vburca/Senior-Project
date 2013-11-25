@@ -24,12 +24,20 @@ def cleanup(extension):
 
 
 def generate_pair_matrices(cross_Z, A_indices, B_indices, n):
-  A_elements = list(cross_Z[element] for row in A_indices for element in row)     # Getting the actual element pairs from the index of the cross product
+  A_elements = list()
+  for row in A_indices:
+    for element in row:
+      A_element = (element / n, element % n)    # Re-generating the actual element pairs from the index of the cross product
+      A_elements.append(A_element)
   A_elements_arr = numpy.array(A_elements, dtype=[('first', '<i4'), ('second', '<i4')])   # Transform list into a NumPy array for further transformations
   # global A 
   A = A_elements_arr.reshape((n, n))    # Reshape into two dimensional NumPy array
 
-  B_elements = list(cross_Z[element] for row in B_indices for element in row)
+  B_elements = list()
+  for row in B_indices:
+    for element in row:
+      B_element = (element / n, element % n)
+      B_elements.append(B_element)
   B_elements_arr = numpy.array(B_elements, dtype=[('first', '<i4'), ('second', '<i4')])
   # global B 
   B = B_elements_arr.reshape((n, n))
@@ -69,9 +77,17 @@ def write_pair_matrices(A, B):
     outfile_B.write("\n")
   outfile_B.close()
 
+def write_H_params(size_H, k, EPSILON, NAME):
+  outfile_params = open("params.aux", "w")
 
-def write_H_matrix(H, name):
-  outfile_H = open(name.strip('[]') + "_matrix_H.out", "w")
+  outfile_params.write(str(NAME) + " " + str(size_H) + " " + str(k) + " " + str(EPSILON))
+  outfile_params.close()
+
+
+def write_H_matrix(H, NAME):
+  print NAME + " Writing matrix H to file ... "
+
+  outfile_H = open("matrix_H.aux", "w")
 
   for row in H:
     for element in row:
@@ -79,8 +95,23 @@ def write_H_matrix(H, name):
     outfile_H.write("\n")
   outfile_H.close()
 
+  print NAME + " Done writing to file."
 
-def generate_eigenvalue(M, n, degree):
+
+def run_c_commands():
+  # Compile C power method code
+  os.system("gcc -o powermethod powermethod.c")
+  os.system("./powermethod")
+
+
+def generate_eigenvalue(H, size_H, k, EPSILON, NAME):
+  write_H_params(size_H, k, EPSILON, NAME)
+  write_H_matrix(H, NAME)
+
+  #run_c_commands()
+
+
+def generate_eigenvalue_old(M, n, degree):
   EPSILON = 0.001
   return matrix_helper.powermethod(M, n, EPSILON, degree)
 

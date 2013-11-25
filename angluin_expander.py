@@ -24,7 +24,7 @@ import helpers
 NAME = '[ANGLUIN]'
 
 
-def GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency):
+def GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n):
   size_H = 2 * size
   k = 3
 
@@ -34,25 +34,30 @@ def GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency):
 
   for row in A_indices:
     for element_index in row:   # Get the tuple index from the matrix of indices (A)
-      x = cross_Z[element_index][0]   # Grab first value
-      y = cross_Z[element_index][1]   # Grab second value
+      x0 = element_index / n   # Grab first value
+      y0 = element_index % n   # Grab second value
 
-      i = cross_Z.index((x, y))       # Grab the index of the (x, y) element
+      i = element_index       # Grab the index of the (x0, y0) element
 
       # connect to (x, y) in B
-      j = cross_Z.index((x, y)) + size   # add the shift in the H indexing       
+      x = x0
+      y = y0
+      j = (x * n + y % n) + size   # add the shift in the H indexing       
 
       H[i][0] = j      # node with index i is connected to node with index j
       H[j][0] = i      # vice-versa
 
       # connect to (x + y, y) in B
-      j = cross_Z.index(((x + y) % n, y)) + size
+      x = (x0 + y0) % n
+      j = (x * n + y % n) + size
 
       H[i][1] = j
       H[j][1] = i
 
       # connect to (y + 1, -x) in B
-      j = cross_Z.index(((y + 1) % n, (-x) % n)) + size
+      x = (y0 + 1) % n
+      y = (-x0) % n
+      j = (x * n + y % n) + size
 
       H[i][2] = j
       H[j][2] = i
@@ -60,15 +65,15 @@ def GENERATE_ANGLUIN_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency):
 
   print NAME + " Generated adjacency list matrix H."
 
-  if output_adjacency == True:
-    helpers.write_H_matrix(H, NAME)
+  EPSILON = 0.0001    # Error range for the eigenvalue approximation algorithm
 
   print NAME + " Calculating second highest eigenvalue of H ... "
 
-  eigenvalue = helpers.generate_eigenvalue(H, size_H, k)
+  eigenvalue = helpers.generate_eigenvalue(H, size_H, k, EPSILON, NAME);
 
   print NAME + " Calculated highest eigenvalue of H."
 
-  helpers.write_result(NAME, n, eigenvalue)  
+  # helpers.write_result(NAME, n, eigenvalue) 
+  # helpers.cleanup(".aux") 
 
 #  print NAME + " Second highest eigenvalue = " + str(eigenvalue)

@@ -49,27 +49,22 @@ def generate_expanders():
   print "Generating matrices A and B with n = " + str(n) + " ... "
 
   # Generate Z(n)
-  Z_n = list(xrange(n))
-
-
-  # Generate cross product Z(n) x Z(n)
-  cross_Z = list((Zi, Zj) for Zi in Z_n for Zj in Z_n)
-  cross_Z_arr = numpy.array(cross_Z)    # Generating NumPy Array of the cross product
+  #Z_n = list(xrange(n))
 
 
   # Generate the elements of  A and B using indices from the cross product
   size = n * n
 
-  indices_of_cross_Z = numpy.arange(size)   # Generate array of indices of the cross product
+  indices_of_pairs = numpy.arange(size)   # Generate array of indices of the cross product
 
-  A_indices = numpy.random.permutation(indices_of_cross_Z).reshape((n, n)) # Randomize in matrix positions
-  B_indices = numpy.random.permutation(indices_of_cross_Z).reshape((n, n)) # Randomize in matrix positions
+  A_indices = numpy.random.permutation(indices_of_pairs).reshape((n, n)) # Randomize in matrix positions
+  B_indices = numpy.random.permutation(indices_of_pairs).reshape((n, n)) # Randomize in matrix positions
 
   if config_vars['expanders']['output_indices_matrices'] == True:
     helpers.write_indices_matrices(A_indices, B_indices)
 
   if config_vars['expanders']['output_initializer_matrices'] == True:
-    returned_matrices = helpers.generate_pair_matrices(cross_Z, A_indices, B_indices, n)
+    returned_matrices = helpers.generate_pair_matrices(A_indices, B_indices, n)
     A = returned_matrices[0]
     B = returned_matrices[1]
 
@@ -79,21 +74,17 @@ def generate_expanders():
 
 
   if config_vars['expanders']['angluin_method'] == True:
-    algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, cross_Z, A_indices, n, 
-                output_adjacency=config_vars['expanders']['output_expander_adjacency'])
+    algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, A_indices, n)
 
 
   if config_vars['expanders']['margulis_method'] == True:
-    algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, cross_Z, A_indices, n,
-                output_adjacency=config_vars['expanders']['output_expander_adjacency'])
+    algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, A_indices, n)
 
   if config_vars['expanders']['random_3'] == True:
-    algorithms.RANDOM_METHOD(RANDOM_3, 
-                output_adjacency=config_vars['expanders']['output_expander_adjacency'])
+    algorithms.RANDOM_METHOD(RANDOM_3)
 
   if config_vars['expanders']['random_5'] == True:
-    algorithms.RANDOM_METHOD(RANDOM_5,
-                output_adjacency=config_vars['expanders']['output_expander_adjacency'])
+    algorithms.RANDOM_METHOD(RANDOM_5)
 
 
 # DEBUGGING CODE

@@ -3,8 +3,7 @@ expanders:
   cleanup: true
   clear_results_files: false
   margulis_method: false
-  n: 100
-  output_expander_adjacency: false
+  n: 2
   output_indices_matrices: false
   output_initializer_matrices: false
   random_3: false

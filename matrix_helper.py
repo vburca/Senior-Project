@@ -5,8 +5,8 @@
 # algorithm is too slow for the purpose of the project. Also, it does not take 
 # advantage of the sparse matrices that the expander generating algorithm creates.
 
-# Disclaimer: This is a Python implementation of the power method described in 
-# Kevin Chang's unpublished thesis (Princeton) - his implementation is done in C.
+# Disclaimer (Rights of ownership): This is a Python implementation of the power method 
+# described in Kevin Chang's unpublished thesis (Princeton) - his implementation is done in C.
 
 # Author:   Vlad Burca
 # Date:     November 24, 2013
@@ -34,7 +34,6 @@ def powermethod(MATRIX, n, epsilon, k):
     c = 0
     d = 0
     normconst = 0
-    test = 0
 
     c = sum(eigenvector1)
     vector3 = [0] * n

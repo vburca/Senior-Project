@@ -26,7 +26,7 @@ import helpers
 NAME = '[MARGULIS]'
 
 
-def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency):
+def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n):
   size_H = 2 * size
 
   print NAME + " Generating H of size " + str(size_H) + " x " + str(size_H) + " ... "
@@ -72,8 +72,7 @@ def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n, output_adjacency):
 
   print NAME + " Generated adjacency matrix H."
 
-  if output_adjacency == True:
-    helpers.write_H_matrix(H, NAME)
+  helpers.write_H_matrix(H, NAME)
 
   print NAME + " Calculating eigenvalues of H ... "
 
