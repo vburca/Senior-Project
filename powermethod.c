@@ -129,6 +129,8 @@ int main() {
 
   fclose(matrix_file);
 
+  // DEBUG Code - output created adjacency list matrix
+  
   // for (i = 0; i < n; i++) {
   //   printf ("\n");
   //   for (j = 0; j < k; j++)

@@ -24,65 +24,71 @@ import helpers
 
 
 NAME = '[MARGULIS]'
+K = 5
 
 
-def GENERATE_MARGULIS_EXPANDERS(size, cross_Z, A_indices, n, EPSILON):
+def GENERATE_MARGULIS_EXPANDERS(size, A_indices, n, EPSILON):
   size_H = 2 * size
 
-  print NAME + " Generating H of size " + str(size_H) + " x " + str(size_H) + " ... "
+  print NAME + " Generating H (adjacency list matrix) of size " + str(size_H) + " x " + str(K) + " ... "
 
-  H = numpy.zeros(shape=(size_H, size_H), dtype=numpy.int64)  # Generate H, empty adjacency matrix
+  H = numpy.empty(shape=(size_H, K), dtype=numpy.int32)  # Generate H, empty adjacency list matrix
 
   for row in A_indices:
     for element_index in row:   # Get the tuple index from the matrix of indices (A)
-      x = cross_Z[element_index][0]   # Grab first value
-      y = cross_Z[element_index][1]   # Grab second value
+      x0 = element_index / n   # Grab first value
+      y0 = element_index % n   # Grab second value
 
-      i = cross_Z.index((x, y))       # Grab the index of the (x, y) element
+      i = element_index       # Grab the index of the (x, y) element
 
       # connect to (x, y) in B
-      j = cross_Z.index((x, y)) + size   # add the shift in the H indexing       
+      x = x0
+      y = y0
+      j = (x * n + y % n) + size   # add the shift in the H indexing       
 
-      H[i][j] += 1      # Increment the number of edges
-      H[j][i] += 1      # symmetric by first diagonal
+      H[i][0] = j      # node with index i is connected to node with index j
+      H[j][0] = i      # vice-versa
 
       # connect to (x + 1, y) in B
-      j = cross_Z.index(((x + 1) % n, y)) + size
+      x = (x0 + 1) % n
+      y = y0
+      j = (x * n + y % n) + size
 
-      H[i][j] += 1
-      H[j][i] += 1
+      H[i][1] = j
+      H[j][1] = i
 
       # connect to (x, y + 1) in B
-      j = cross_Z.index((x, (y + 1) % n)) + size
+      x = x0
+      y = (y0 + 1) % n
+      j = (x * n + y % n) + size
 
-      H[i][j] += 1
-      H[j][i] += 1
+      H[i][2] = j
+      H[j][2] = i
 
       # connect to (x + y, y) in B
-      j = cross_Z.index(((x + y) % n, y)) + size
+      x = (x0 + y0) % n
+      y = y0
+      j = (x * n + y % n) + size
 
-      H[i][j] += 1
-      H[j][i] += 1
+      H[i][3] = j
+      H[j][3] = i
 
       # connect to (-y, x) in B
-      j = cross_Z.index(((-y) % n, x)) + size
+      x = (-y0) % n
+      y = x0
+      j = (x * n + y % n) + size
 
-      H[i][j] += 1
-      H[j][i] += 1
+      H[i][4] = j
+      H[j][4] = i
 
-  print NAME + " Generated adjacency matrix H."
+  print NAME + " Generated adjacency list matrix H."
 
-  helpers.write_H_matrix(H, NAME)
+  print NAME + " Calculating second highest eigenvalue of H ... "
 
-  print NAME + " Calculating eigenvalues of H ... "
+  eigenvalue = helpers.generate_eigenvalue(H, size_H, K, EPSILON, NAME)
 
-  eigenvalues = helpers.generate_eigenvalues(H, NAME)
+  print NAME + " Calculated second highest eigenvalue of H."  
 
-  if output_eigenvalues == True:
-    helpers.write_eigenvalues(NAME, eigenvalues)
+  helpers.write_result(NAME, n, eigenvalue)
+  helpers.cleanup(".aux")
 
-  print NAME + " Calculated eigenvalues of H."  
-
-  helpers.write_result(NAME, n, eigenvalues[1])  
-
-#  print NAME + " Second highest eigenvalue = " + str(eigenvalues[1])

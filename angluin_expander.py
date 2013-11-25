@@ -22,15 +22,15 @@ import helpers
 
 
 NAME = '[ANGLUIN]'
+K = 3
 
 
 def GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n, EPSILON):
   size_H = 2 * size
-  k = 3
 
-  print NAME + " Generating H (adjacency list matrix) of size " + str(size_H) + " x " + str(k) + " ... "
+  print NAME + " Generating H (adjacency list matrix) of size " + str(size_H) + " x " + str(K) + " ... "
 
-  H = numpy.empty(shape=(size_H, k), dtype=numpy.int32)   # Generate H, empty adjacency list matrix
+  H = numpy.empty(shape=(size_H, K), dtype=numpy.int32)   # Generate H, empty adjacency list matrix
 
   for row in A_indices:
     for element_index in row:   # Get the tuple index from the matrix of indices (A)
@@ -67,11 +67,10 @@ def GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n, EPSILON):
 
   print NAME + " Calculating second highest eigenvalue of H ... "
 
-  eigenvalue = helpers.generate_eigenvalue(H, size_H, k, EPSILON, NAME);
+  eigenvalue = helpers.generate_eigenvalue(H, size_H, K, EPSILON, NAME)
 
-  print NAME + " Calculated highest eigenvalue of H."
+  print NAME + " Calculated second highest eigenvalue of H."
 
   helpers.write_result(NAME, n, eigenvalue) 
   helpers.cleanup(".aux") 
 
-#  print NAME + " Second highest eigenvalue = " + str(eigenvalue)
