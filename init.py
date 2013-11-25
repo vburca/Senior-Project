@@ -42,7 +42,7 @@ for v in VALUES:
   config_vals = yaml.safe_load(config_file)
   config_file.close()
 
-  config_vals['expanders']['n'] = v     # update the new value
+  config_vals['params']['n'] = v     # update the new value
 
   # Prepare config file to write the new yaml dictionary
   config_file = open("config.yaml", "w")

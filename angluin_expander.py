@@ -24,7 +24,7 @@ import helpers
 NAME = '[ANGLUIN]'
 
 
-def GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n):
+def GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n, EPSILON):
   size_H = 2 * size
   k = 3
 
@@ -65,15 +65,13 @@ def GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n):
 
   print NAME + " Generated adjacency list matrix H."
 
-  EPSILON = 0.0001    # Error range for the eigenvalue approximation algorithm
-
   print NAME + " Calculating second highest eigenvalue of H ... "
 
   eigenvalue = helpers.generate_eigenvalue(H, size_H, k, EPSILON, NAME);
 
   print NAME + " Calculated highest eigenvalue of H."
 
-  # helpers.write_result(NAME, n, eigenvalue) 
-  # helpers.cleanup(".aux") 
+  helpers.write_result(NAME, n, eigenvalue) 
+  helpers.cleanup(".aux") 
 
 #  print NAME + " Second highest eigenvalue = " + str(eigenvalue)

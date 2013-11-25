@@ -36,15 +36,16 @@ def generate_expanders():
 
 
   # Clean existing .out files
-  if config_vars['expanders']['cleanup'] == True:
+  if config_vars['params']['cleanup'] == True:
     helpers.cleanup(".out")
 
   # Clean existing .results files
-  if config_vars['expanders']['clear_results_files'] == True:
+  if config_vars['params']['clear_results_files'] == True:
     helpers.cleanup(".results")
 
 
-  n = config_vars['expanders']['n']
+  n       = config_vars['params']['n']
+  EPSILON = config_vars['params']['epsilon']
 
   print "Generating matrices A and B with n = " + str(n) + " ... "
 
@@ -60,10 +61,10 @@ def generate_expanders():
   A_indices = numpy.random.permutation(indices_of_pairs).reshape((n, n)) # Randomize in matrix positions
   B_indices = numpy.random.permutation(indices_of_pairs).reshape((n, n)) # Randomize in matrix positions
 
-  if config_vars['expanders']['output_indices_matrices'] == True:
+  if config_vars['params']['output_indices_matrices'] == True:
     helpers.write_indices_matrices(A_indices, B_indices)
 
-  if config_vars['expanders']['output_initializer_matrices'] == True:
+  if config_vars['params']['output_initializer_matrices'] == True:
     returned_matrices = helpers.generate_pair_matrices(A_indices, B_indices, n)
     A = returned_matrices[0]
     B = returned_matrices[1]
@@ -73,18 +74,18 @@ def generate_expanders():
   print "Generated matrices A and B."
 
 
-  if config_vars['expanders']['angluin_method'] == True:
-    algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, A_indices, n)
+  if config_vars['algorithms']['angluin_method'] == True:
+    algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, A_indices, n, EPSILON)
 
 
-  if config_vars['expanders']['margulis_method'] == True:
-    algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, A_indices, n)
+  if config_vars['algorithms']['margulis_method'] == True:
+    algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, A_indices, n, EPSILON)
 
-  if config_vars['expanders']['random_3'] == True:
-    algorithms.RANDOM_METHOD(RANDOM_3)
+  if config_vars['algorithms']['random_3'] == True:
+    algorithms.RANDOM_METHOD(RANDOM_3, EPSILON)
 
-  if config_vars['expanders']['random_5'] == True:
-    algorithms.RANDOM_METHOD(RANDOM_5)
+  if config_vars['algorithms']['random_5'] == True:
+    algorithms.RANDOM_METHOD(RANDOM_5, EPSILON)
 
 
 # DEBUGGING CODE

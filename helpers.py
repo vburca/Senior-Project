@@ -6,6 +6,7 @@
 
 import yaml
 import numpy
+import subprocess
 from numpy import linalg
 
 import matrix_helper
@@ -100,15 +101,30 @@ def write_H_matrix(H, NAME):
 
 def run_c_commands():
   # Compile C power method code
-  os.system("gcc -o powermethod powermethod.c")
-  os.system("./powermethod")
+  print "Compiling the C Eigenvalue Computation ... "
+  p = subprocess.Popen("gcc -o powermethod powermethod.c", shell=True)
+  p.communicate()
+  print "Running C Eigenvalue Computation ... "
+  p = subprocess.Popen("./powermethod", shell=True)
+  p.communicate()
+
+
+def read_from_c_results():
+  result_file = open("eigenvalue.aux", "r")
+  eigenvalue = result_file.read()
+
+  result_file.close()
+
+  return float(eigenvalue)
 
 
 def generate_eigenvalue(H, size_H, k, EPSILON, NAME):
   write_H_params(size_H, k, EPSILON, NAME)
   write_H_matrix(H, NAME)
 
-  #run_c_commands()
+  run_c_commands()
+
+  return read_from_c_results()
 
 
 def generate_eigenvalue_old(M, n, degree):

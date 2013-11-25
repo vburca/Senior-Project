@@ -29,8 +29,6 @@ def powermethod(MATRIX, n, epsilon, k):
 
   while (guess1 - guess2) <= -epsilon or (guess1 - guess2) >= epsilon:
 
-    # print (guess1 - guess2)
-
     c = 0
     d = 0
     normconst = 0
