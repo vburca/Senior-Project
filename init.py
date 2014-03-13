@@ -1,12 +1,12 @@
 # Description: 
-# Runs the init_generators.py wth all the given algorithms for
+# Runs the start.py wth all the given algorithms for
 # various values of n.
 # Reports the final results in files that are ready to be processed 
 # later.
 
 # Author:   Vlad Burca
 # Date:     November 24, 2013
-# Updated:  November 24, 2013
+# Updated:  March 13, 2014
 
 import start
 import yaml
