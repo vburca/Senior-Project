@@ -49,6 +49,7 @@ def GENERATE_ANGLUIN_EXPANDERS(size, A_indices, n, EPSILON):
 
       # connect to (x + y, y) in B
       x = (x0 + y0) % n
+      y = y0
       j = (x * n + y % n) + size
 
       H[i][1] = j

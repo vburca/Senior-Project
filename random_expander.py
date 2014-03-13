@@ -2,7 +2,7 @@
 
 # Author:   Vlad Burca
 # Date:     November 24, 2013
-# Updated:  November 24, 2013
+# Updated:  November 25, 2013
 
 
 # Description:
@@ -24,11 +24,7 @@ import helpers
 NAME = ''
 
 
-def GENERATE_RANDOM_EXPANDERS(K, size_H, EPSILON):
-  NAME = '[RANDOM' + str(K) + ']'
-
-  print NAME + " Generating H (adjacency list matrix) of size " + str(size_H) + " x " + str(K) + " ... "
-
+def generate_expander(K, size_H):
   H = numpy.empty(shape=(size_H, K), dtype=numpy.int32)   # Generate H, empty adjacency list matrix
 
   second_half = numpy.arange(size_H / 2, size_H)
@@ -41,13 +37,29 @@ def GENERATE_RANDOM_EXPANDERS(K, size_H, EPSILON):
       H[i][edge]              = perm_half[i]
       H[perm_half[i]][edge]   = i
 
-  print NAME + " Generated adjacency list matrix H."
+  return H
 
-  print NAME + " Calculating second highest eigenvalue of H ... "
 
-  eigenvalue = helpers.generate_eigenvalue(H, size_H, K, EPSILON, NAME)
+def GENERATE_RANDOM_EXPANDERS(K, size_H, EPSILON, samples):
 
-  print NAME + " Calculated second highest eigenvalue of H."
+  NAME = '[RANDOM' + str(K) + ']'
+
+  print NAME + " Generating " + str(samples) + " H (adjacency list matrices) of size " + str(size_H) + " x " + str(K) + " ... "
+  print "\n"
+
+  eigenvalue = 0
+
+  for sampling in range(samples):
+    print NAME + " ##  " + str(sampling) + "  //  " + str(samples) + "  ## "
+
+    H = generate_expander(K, size_H)
+    eigenvalue_aux = helpers.generate_eigenvalue(H, size_H, K, EPSILON, NAME)
+
+    eigenvalue += eigenvalue_aux
+
+  eigenvalue = eigenvalue / samples
+
+  print NAME + " Calculated average of second highest eigenvalue for " + str(samples) + " matrices H."
 
   helpers.write_result(NAME, size_H, K, eigenvalue) 
   helpers.cleanup(".aux")

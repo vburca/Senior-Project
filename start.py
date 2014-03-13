@@ -84,11 +84,13 @@ def generate_expanders():
 
   if config_vars['algorithms']['random_3'] == True:
     print ''
-    algorithms.RANDOM_METHOD(RANDOM_3, 2 * size, EPSILON)
+    samples = config_vars['params']['random_graphs_samples']
+    algorithms.RANDOM_METHOD(RANDOM_3, 2 * size, EPSILON, samples)
 
   if config_vars['algorithms']['random_5'] == True:
     print ''
-    algorithms.RANDOM_METHOD(RANDOM_5, 2 * size, EPSILON)
+    samples = config_vars['params']['random_graphs_samples']
+    algorithms.RANDOM_METHOD(RANDOM_5, 2 * size, EPSILON, samples)
 
 print '\n'
 # DEBUGGING CODE
