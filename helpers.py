@@ -10,6 +10,21 @@ import subprocess
 from numpy import linalg
 
 import matrix_helper
+import methods
+
+# Check if any of the passed algorithms is configured to run.
+# @param: *args - the algorthms to test for.
+# @return: whether any of the passed algorithms is configured to run.
+def check_configured_run(*args):
+  config_file = open("config.yaml", "r")
+  config_vals = yaml.safe_load(config_file)
+  config_file.close()
+
+  for algorithm in args:
+    if config_vals['algorithms'][algorithm] == True:
+      return True
+
+  return False
 
 
 def cleanup(extension):

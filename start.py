@@ -16,14 +16,7 @@ from numpy import linalg
 
 import helpers
 import algorithms
-
-# Constant names for the Explicit Methods
-ANGLUIN_METHOD  = 'ANGLUIN'
-MARGULIS_METHOD = 'MARGULIS'
-
-# Constant names for the Random Methods
-RANDOM_3        = 'RANDOM_3'
-RANDOM_5        = 'RANDOM_5'
+import methods
 
 
 # MAIN
@@ -47,52 +40,57 @@ def generate_expanders():
   n       = config_vars['params']['n']
   EPSILON = config_vars['params']['epsilon']
 
-  print "Generating matrices A and B with n = " + str(n) + " ... "
-
   # Generate Z(n)
   #Z_n = list(xrange(n))
 
 
-  # Generate the elements of  A and B using indices from the cross product
   size = n * n
 
-  indices_of_pairs = numpy.arange(size)   # Generate array of indices of the cross product
+  # Generate matrices A and B only if the algorithms that require them are
+  # configured to run
+  if  helpers.check_configured_run(methods.ANGLUIN, methods.MARGULIS):
+    print "Generating matrices A and B with n = " + str(n) + " ... "
 
-  A_indices = numpy.random.permutation(indices_of_pairs).reshape((n, n)) # Randomize in matrix positions
-  B_indices = numpy.random.permutation(indices_of_pairs).reshape((n, n)) # Randomize in matrix positions
+    # Generate the elements of  A and B using indices from the cross product
+    indices_of_pairs = numpy.arange(size)   # Generate array of indices of the cross product
 
-  if config_vars['params']['output_indices_matrices'] == True:
-    helpers.write_indices_matrices(A_indices, B_indices)
+    A_indices = numpy.random.permutation(indices_of_pairs).reshape((n, n)) # Randomize in matrix positions
+    B_indices = numpy.random.permutation(indices_of_pairs).reshape((n, n)) # Randomize in matrix positions
 
-  if config_vars['params']['output_initializer_matrices'] == True:
-    returned_matrices = helpers.generate_pair_matrices(A_indices, B_indices, n)
-    A = returned_matrices[0]
-    B = returned_matrices[1]
+    if config_vars['params']['output_indices_matrices'] == True:
+      helpers.write_indices_matrices(A_indices, B_indices)
 
-    helpers.write_pair_matrices(A, B)
+    if config_vars['params']['output_initializer_matrices'] == True:
+      returned_matrices = helpers.generate_pair_matrices(A_indices, B_indices, n)
+      A = returned_matrices[0]
+      B = returned_matrices[1]
 
-  print "Generated matrices A and B."
+      helpers.write_pair_matrices(A, B)
+
+    print "Generated matrices A and B."
 
 
-  if config_vars['algorithms']['angluin_method'] == True:
+  if config_vars['algorithms'][methods.ANGLUIN] == True:
     print ''
-    algorithms.EXPLICIT_METHOD(ANGLUIN_METHOD, size, A_indices, n, EPSILON)
+    algorithms.EXPLICIT_METHOD(methods.ANGLUIN, size, A_indices, n, EPSILON)
 
-  if config_vars['algorithms']['margulis_method'] == True:
+  if config_vars['algorithms'][methods.MARGULIS] == True:
     print ''
-    algorithms.EXPLICIT_METHOD(MARGULIS_METHOD, size, A_indices, n, EPSILON)
+    algorithms.EXPLICIT_METHOD(methods.MARGULIS, size, A_indices, n, EPSILON)
 
-  if config_vars['algorithms']['random_3'] == True:
+  if config_vars['algorithms'][methods.RANDOM_3] == True:
     print ''
     samples = config_vars['params']['random_graphs_samples']
-    algorithms.RANDOM_METHOD(RANDOM_3, 2 * size, EPSILON, samples)
+    algorithms.RANDOM_METHOD(methods.RANDOM_3, 2 * size, EPSILON, samples)
 
-  if config_vars['algorithms']['random_5'] == True:
+  if config_vars['algorithms'][methods.RANDOM_5] == True:
     print ''
     samples = config_vars['params']['random_graphs_samples']
-    algorithms.RANDOM_METHOD(RANDOM_5, 2 * size, EPSILON, samples)
+    algorithms.RANDOM_METHOD(methods.RANDOM_5, 2 * size, EPSILON, samples)
+
 
 print '\n'
+
 # DEBUGGING CODE
 
-generate_expanders()
+# generate_expanders()

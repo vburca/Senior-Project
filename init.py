@@ -8,14 +8,11 @@
 # Date:     November 24, 2013
 # Updated:  March 13, 2014
 
-import start
+from start import generate_expanders
 import yaml
 
-# Methods
-ANGLUIN   = 'angluin'
-MARGULIS  = 'margulis'
-RANDOM_3  = 'random_3'
-RANDOM_5  = 'random_5'
+import methods
+from helpers import check_configured_run
 
 # VALUES for the number of nodes, n
 # (replace code accordingly, for an incrementation strategy, if needed)
@@ -35,24 +32,35 @@ VALUES = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30 ]
 
 print "Starting main program ... \n\n"
 
+# Run only if there is any algorithm configured to run
+if check_configured_run(methods.ANGLUIN, methods.MARGULIS, methods.AJTAI, \
+                        methods.RANDOM_3, methods.RANDOM_5):
 
-for v in VALUES:
-  # Update config file with the new value for n
-  config_file = open("config.yaml", "r")
-  config_vals = yaml.safe_load(config_file)
-  config_file.close()
+  for v in VALUES:
+    # Update config file with the new value for n
+    config_file = open("config.yaml", "r")
+    config_vals = yaml.safe_load(config_file)
+    config_file.close()
 
-  config_vals['params']['n'] = v     # update the new value
+    config_vals['params']['n'] = v     # update the new value
 
-  # Prepare config file to write the new yaml dictionary
-  config_file = open("config.yaml", "w")
-  config_file.write(yaml.dump(config_vals, default_flow_style=False))   # update yaml dictionary in config file
-  config_file.close()
+    # Prepare config file to write the new yaml dictionary
+    config_file = open("config.yaml", "w")
+    config_file.write(yaml.dump(config_vals, default_flow_style=False))   # update yaml dictionary in config file
+    config_file.close()
 
-  # Call the main method that runs the generating algorithms
+    # Call the main method that runs the generating algorithms
+    print "\n\n--------------------------------------------------"
+    print "**** n = " + str(v) + " ****\n"
+    generate_expanders()
+
   print "\n\n--------------------------------------------------"
-  print "**** n = " + str(v) + " ****\n"
-  start.generate_expanders()
+  print "Program is done. Results are in the .results files. Exiting ... \n"
+
+else:
+  print "\n\n--------------------------------------------------"
+  print "Program is done. No algorithm was configured to run. Exiting ... \n"
+
 
 
 # Write the final results to their coresponding files
@@ -68,6 +76,3 @@ for v in VALUES:
 # Random_3 results
 
 # Random_5 results
-
-print "Program is done. Results are in the .results files. Exiting ... "
-

@@ -1,13 +1,14 @@
 algorithms:
-  angluin_method: false
-  margulis_method: false
-  random_3: true
-  random_5: true
+  ajtai: false
+  angluin: false
+  margulis: false
+  random_3: false
+  random_5: false
 params:
   cleanup: true
   clear_results_files: false
   epsilon: 1.0e-06
-  n: 10
-  random_graphs_samples: 1000
+  n: 30
   output_indices_matrices: false
   output_initializer_matrices: false
+  random_graphs_samples: 1000

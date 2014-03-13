@@ -19,9 +19,10 @@
 import numpy
 
 import helpers
+from methods import ANGLUIN
 
 
-NAME = '[ANGLUIN]'
+NAME = '[' + ANGLUIN.upper() + ']'
 K = 3
 
 

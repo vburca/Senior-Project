@@ -21,9 +21,10 @@
 import numpy
 
 import helpers
+from methods import MARGULIS
 
 
-NAME = '[MARGULIS]'
+NAME = '[' + MARGULIS.upper() + ']'
 K = 5
 
 
