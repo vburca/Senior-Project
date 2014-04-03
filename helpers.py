@@ -181,8 +181,8 @@ def write_result(name, n, K, eigenvalue):
 
   # Calculate the expansion constant based on the fact that, for a good
   # Expander ("Ramanujan"), we need SecondEigenvalue <= 2*sqrt(K-1)
-  # We will consider good expanders, the graphs that have a positive, close
-  # to 0 value for the expansion_constant.
+  # We will consider good expanders, the graphs that have a positive, high
+  # value for the expansion_constant (the SecondEigenvalue has to be small).
 
   expansion_constant = 2 * math.sqrt(K - 1) - eigenvalue
   # Uncomment to get only eigenvalues in .results file
