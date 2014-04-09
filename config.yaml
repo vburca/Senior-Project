@@ -1,10 +1,11 @@
 algorithms:
-  ajtai: false
+  ajtai: true
   angluin: false
   margulis: false
   random_3: false
   random_5: false
 params:
+  c: 1000
   cleanup: true
   clear_results_files: false
   epsilon: 1.0e-06

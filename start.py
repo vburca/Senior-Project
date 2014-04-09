@@ -70,14 +70,33 @@ def generate_expanders():
     print "Generated matrices A and B."
 
 
+  # EXPLICIT ALGORITHMS
   if config_vars['algorithms'][methods.ANGLUIN] == True:
     print ''
-    algorithms.EXPLICIT_METHOD(methods.ANGLUIN, size, A_indices, n, EPSILON)
+    algorithms.EXPLICIT_METHOD(method_name=methods.ANGLUIN, 
+                               size=size, 
+                               A_indices=A_indices, 
+                               n=n, 
+                               EPSILON=EPSILON)
 
   if config_vars['algorithms'][methods.MARGULIS] == True:
     print ''
-    algorithms.EXPLICIT_METHOD(methods.MARGULIS, size, A_indices, n, EPSILON)
+    algorithms.EXPLICIT_METHOD(method_name=methods.MARGULIS, 
+                               size=size, 
+                               A_indices=A_indices, 
+                               n=n, 
+                               EPSILON=EPSILON)
 
+  if config_vars['algorithms'][methods.AJTAI] == True:
+    print ''
+    c = config_vars['params']['c']
+    s = c * numpy.log(n)
+    algorithms.EXPLICIT_METHOD(method_name=methods.AJTAI, 
+                               size=2 * size, 
+                               EPSILON=EPSILON, 
+                               s=s)
+
+  # RANDOM ALGORITHMS
   if config_vars['algorithms'][methods.RANDOM_3] == True:
     print ''
     samples = config_vars['params']['random_graphs_samples']
