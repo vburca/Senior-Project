@@ -26,6 +26,7 @@ NAME = ''
 
 def generate_expander(K, size_H):
   H = numpy.empty(shape=(size_H, K), dtype=numpy.int32)   # Generate H, empty adjacency list matrix
+  H[:] = -1     # Initialize it with all elements -1
 
   second_half = numpy.arange(size_H / 2, size_H)
 

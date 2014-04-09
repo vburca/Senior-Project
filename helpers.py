@@ -195,3 +195,14 @@ def write_result(name, n, K, eigenvalue):
   result_file = open(name + ".results", "w")
   result_file.write(yaml.dump(results, default_flow_style=False))    # update results yaml dictionary
   result_file.close()
+
+
+# Method that calculates the rank of a node from the adjacency list matrix
+def get_rank(node, matrix):
+  rank = 0
+  for edge in range(numpy.size(matrix[node])):
+    rank = rank + 1 if matrix[node][edge] != -1 else rank
+
+  return rank
+
+

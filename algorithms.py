@@ -22,7 +22,7 @@ def EXPLICIT_METHOD(method_name, size, EPSILON, A_indices=None, n=None, s=None):
     #GENERATE_MARGULIS_EXPANDERS(size, A_indices, n, EPSILON)
   elif method_name == methods.AJTAI:
     print "Running AJTAI METHOD"
-    GENERATE_AJTAI_EXPANDERS(K=3, size_H=size, EPSILON=EPSILON, s=s)
+    GENERATE_AJTAI_EXPANDERS(size_H=size, EPSILON=EPSILON, s=s)
 
 
 def RANDOM_METHOD(method_name, size_H, EPSILON, samples):
