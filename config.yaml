@@ -1,15 +1,15 @@
 algorithms:
-  ajtai: true
-  angluin: false
-  margulis: false
-  random_3: false
-  random_5: false
+  ajtai: false
+  angluin: true
+  margulis: true
+  random_3: true
+  random_5: true
 params:
   c: 1000
   cleanup: true
-  clear_results_files: false
+  clear_results_files: true
   epsilon: 1.0e-06
   n: 30
   output_indices_matrices: false
   output_initializer_matrices: false
-  random_graphs_samples: 1000
+  random_graphs_samples: 50

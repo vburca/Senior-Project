@@ -32,10 +32,6 @@ def generate_expanders():
   if config_vars['params']['cleanup'] == True:
     helpers.cleanup(".out")
 
-  # Clean existing .results files
-  if config_vars['params']['clear_results_files'] == True:
-    helpers.cleanup(".results")
-
 
   n       = config_vars['params']['n']
   EPSILON = config_vars['params']['epsilon']

@@ -115,10 +115,17 @@ def write_H_matrix(H, NAME):
 
 
 def run_c_commands():
-  # Compile C power method code
-  print "Compiling the C Eigenvalue Computation ... "
-  p = subprocess.Popen("gcc -o powermethod powermethod.c", shell=True)
-  p.communicate()
+  import os, time
+
+  # Compile the power method code only when there is no executable or the
+  # source file (.c) was modified more recently than the compiled one
+  if ((not os.path.isfile("powermethod")) or 
+        (time.ctime(os.path.getmtime("powermethod.c")) > time.ctime(os.path.getmtime("powermethod")))):
+    # Compile C power method code
+    print "Compiling the C Eigenvalue Computation ... "
+    p = subprocess.Popen("gcc -o powermethod powermethod.c", shell=True)
+    p.communicate()
+
   print "Running C Eigenvalue Computation ... "
   p = subprocess.Popen("./powermethod", shell=True)
   p.communicate()

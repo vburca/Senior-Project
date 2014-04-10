@@ -12,11 +12,13 @@ from start import generate_expanders
 import yaml
 
 import methods
-from helpers import check_configured_run
+from helpers import check_configured_run, cleanup
 
 # VALUES for the number of nodes, n
 # (replace code accordingly, for an incrementation strategy, if needed)
-VALUES = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30 ]
+# VALUES = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30 ]
+VALUES = [2, 20, 30]
+
 
 # Open results files
 # angluin_result_file   = open("angluin.results", "w")
@@ -35,18 +37,23 @@ print "Starting main program ... \n\n"
 # Run only if there is any algorithm configured to run
 if check_configured_run(methods.ANGLUIN, methods.MARGULIS, methods.AJTAI, \
                         methods.RANDOM_3, methods.RANDOM_5):
+  
+  # Load configuration parameters
+  config_file = open("config.yaml", "r")
+  config_vars = yaml.safe_load(config_file)
+  config_file.close()
+
+  # Clean existing .results files
+  if config_vars['params']['clear_results_files'] == True:
+    cleanup(".results")
 
   for v in VALUES:
-    # Update config file with the new value for n
-    config_file = open("config.yaml", "r")
-    config_vals = yaml.safe_load(config_file)
-    config_file.close()
 
-    config_vals['params']['n'] = v     # update the new value
+    config_vars['params']['n'] = v     # update the new n value
 
     # Prepare config file to write the new yaml dictionary
     config_file = open("config.yaml", "w")
-    config_file.write(yaml.dump(config_vals, default_flow_style=False))   # update yaml dictionary in config file
+    config_file.write(yaml.dump(config_vars, default_flow_style=False))   # update yaml dictionary in config file
     config_file.close()
 
     # Call the main method that runs the generating algorithms
