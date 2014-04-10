@@ -2,7 +2,7 @@
 
 # Author:   Vlad Burca
 # Date:     November 23, 2013
-# Updated:  November 24, 2013
+# Updated:  April 1, 2014
 
 
 from angluin_expander   import GENERATE_ANGLUIN_EXPANDERS
