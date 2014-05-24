@@ -2,6 +2,8 @@ Senior-Project
 ==============
 Computer Science Senior Project (2013-2014)
 
+Project Paper: http://digitalrepository.trincoll.edu/theses/393/
+
 Expander Graphs - generating "good" expander graphs using a variation of Margulis' approach.
 
 ## Install Git
